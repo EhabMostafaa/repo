@@ -313,88 +313,209 @@ int main()
 
 
 
-ListNode* enterInformationOfStudent()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void enterInformationOfStudent2(DynamicArray *pointerToDynamicArray)
 {
 
     fflush(stdin);
-    ListNode* pointerToListNode = (ListNode*) malloc(sizeof(ListNode));
     printf("Enter the name of your student : ");
-    fgets(pointerToListNode->Student_Name, 30, stdin);
+    fgets(pointerToDynamicArray->Student_Name, 30, stdin);
 
     printf("Enter the ID of of your student : ");
-    scanf("%i", &(pointerToListNode->Student_ID));
+    scanf("%i", &(pointerToDynamicArray->Student_ID));
 
     bool validity_ID = false;
     while (!validity_ID)
     {
-        if (pointerToListNode->Student_ID >= 0)
+        if (pointerToDynamicArray->Student_ID >= 0)
             validity_ID = true;
         else
             {
                 puts("Wrong ID!");
                 printf("Enter a new ID : ");
-                scanf("%i", &(pointerToListNode->Student_ID));
+                scanf("%i", &(pointerToDynamicArray->Student_ID));
             }
     }
 
     printf("Enter the score of last year of of your student : ");
-    scanf("%i", &(pointerToListNode->Score_Of_Last_Year));
+    scanf("%i", &(pointerToDynamicArray->Score_Of_Last_Year));
     bool validity_Score = false;
     while (!validity_Score)
     {
-        if (pointerToListNode->Score_Of_Last_Year >= 0)
+        if (pointerToDynamicArray->Score_Of_Last_Year >= 0)
             validity_Score = true;
         else
             {
                 puts("Wrong score!");
                 printf("Enter a new score : ");
-                scanf("%i", &(pointerToListNode->Score_Of_Last_Year));
+                scanf("%i", &(pointerToDynamicArray->Score_Of_Last_Year));
             }
     }
 
     printf("Enter the date of birth of of your student!\n");
     printf("%s","Enter the day : ");
-    scanf("%i", &(pointerToListNode->Day_Of_Birth));
+    scanf("%i", &(pointerToDynamicArray->Day_Of_Birth));
     printf("%s", "Enter the month :");
-    scanf("%i", &(pointerToListNode->Month_Of_Birth));
+    scanf("%i", &(pointerToDynamicArray->Month_Of_Birth));
     printf("%s", "Enter the year : ");
-    scanf("%i", &(pointerToListNode->Year_Of_Birth));
+    scanf("%i", &(pointerToDynamicArray->Year_Of_Birth));
     bool validity_DateOfBirth = false;
     while (!validity_DateOfBirth)
     {
-        if ((pointerToListNode->Day_Of_Birth > 0 && pointerToListNode->Day_Of_Birth <= 31) && ((pointerToListNode->Month_Of_Birth) > 0
-            && (pointerToListNode->Month_Of_Birth) <=12) && ((pointerToListNode->Year_Of_Birth) >= 0))
+        if ((pointerToDynamicArray->Day_Of_Birth > 0 && pointerToDynamicArray->Day_Of_Birth <= 31) && ((pointerToDynamicArray->Month_Of_Birth) > 0
+            && (pointerToDynamicArray->Month_Of_Birth) <=12) && ((pointerToDynamicArray->Year_Of_Birth) >= 0))
                 validity_DateOfBirth = true;
         else
             {
                 puts("Wrong date of birth!");
                 printf("%s","Enter the day : ");
-                scanf("%i", &(pointerToListNode->Day_Of_Birth));
+                scanf("%i", &(pointerToDynamicArray->Day_Of_Birth));
                 printf("%s", "Enter the month :");
-                scanf("%i", &(pointerToListNode->Month_Of_Birth));
+                scanf("%i", &(pointerToDynamicArray->Month_Of_Birth));
                 printf("%s", "Enter the year : ");
-                scanf("%i", &(pointerToListNode->Year_Of_Birth));
+                scanf("%i", &(pointerToDynamicArray->Year_Of_Birth));
             }
     }
     printf("\n\n");
-    return pointerToListNode;
 }
 
+void print_dynamic_array_elements(DynamicArray* pointerToDynamicArray)
+{
+    printf("The number of elements of the array is : %i", n);
+    printf("\n");
+    for (int j = 0; j < n; ++j)
+    {
+        printf("The name of student %i is : %s",j + 1, (pointerToDynamicArray + j)->Student_Name);
+        printf("The ID of this student is : %i\n", (pointerToDynamicArray + j)->Student_ID);
+        printf("The score of last year of this student is : %i\n", (pointerToDynamicArray + j)->Score_Of_Last_Year);
+        printf("The date of birth of this student is : %i.%i.%i\n" , (pointerToDynamicArray + j)->Day_Of_Birth, (pointerToDynamicArray + j)->Month_Of_Birth
+               , (pointerToDynamicArray + j)->Year_Of_Birth);
+        printf("\n\n");
+    }
+}
 
+void Insert_in_the_end_of_dynamic_array(DynamicArray* pointerToDynamicArray)
+{
+    pointerToDynamicArray = (DynamicArray*) realloc(pointerToDynamicArray, (n + 1) * sizeof(DynamicArray));
+    puts("Now, you will insert the information of the recently added student");
+    puts("Insertion will be in the end!");
+    enterInformationOfStudent2(pointerToDynamicArray + n);
+    ++n;
+}
 
+void Insert_in_the_beginning_of_dynamic_array(DynamicArray* pointerToDynamicArray)
+{
+    pointerToDynamicArray = (DynamicArray*) realloc(pointerToDynamicArray, (n + 1) * sizeof(DynamicArray));
+    int h = n;
+    for(int i = h; i >= 1; --i)
+    {
+        *(pointerToDynamicArray + i) = *(pointerToDynamicArray + i - 1);
+    }
+    puts("Now, you will insert the information of the recently added student");
+    puts("Insertion will be in the end!");
+    enterInformationOfStudent2((pointerToDynamicArray));
+    n++;
+}
 
+void Insert_in_the_middle_of_dynamic_array(DynamicArray* pointerToDynamicArray)
+{
+    puts("Enter position!");
+    printf("Position should be greater than 0 and less than %i.!\n", n);
+    int position;
+    scanf("%i", &position);
+    if (position > 0 && position < n)
+    {
+        pointerToDynamicArray = (DynamicArray*) realloc(pointerToDynamicArray, (n + 1) * sizeof(DynamicArray));
+        int h = n;
+        for(int i = h; i >= position + 1; --i)
+        {
+            *(pointerToDynamicArray + i) = *(pointerToDynamicArray + i - 1);
+        }
+        puts("Now, you will insert the information of the recently added student");
+        puts("Insertion will be in the middle!");
 
-
-
-
-
-
-
-
-
-
-
-
+        enterInformationOfStudent2((pointerToDynamicArray + position));
+    }
+    else
+    {
+        puts("Invalid position.position out of scope!");
+        return;
+    }
+    n++;
+}
 
 
 
