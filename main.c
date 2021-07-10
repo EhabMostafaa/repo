@@ -190,64 +190,136 @@ int main()
     return 0;
 }
 
-void initializeList(List *pointerToList)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void insertInTheBeginning(List *pointerToList)
 {
-    pointerToList->head = NULL;
-    pointerToList->tail = NULL;
-    pointerToList->size = 0;
+    ListNode* newPtr = (ListNode*) malloc(sizeof(ListNode));
+    newPtr = enterInformationOfStudent();
+    newPtr->next = pointerToList->head;
+    pointerToList->head = newPtr;
+    (pointerToList->size)++;
 }
-void designList(int size,List *pointerToList)
+void insertInTheEnd(List *pointerToList)
 {
-    for(int j = 0; j < size; ++j)
-    {
-        printf("Enter the information of student %i\n", j + 1);
-        if(pointerToList->head != NULL)
-        {
-            ListNode* newPtr = (ListNode*) malloc(sizeof(ListNode));
+    ListNode* newPtr = (ListNode*) malloc(sizeof(ListNode));
 
-            newPtr = enterInformationOfStudent();
-            newPtr->next = pointerToList->tail->next;
-            pointerToList->tail->next = newPtr;
-            pointerToList->tail = pointerToList->tail->next;
-        }
-        else
-        {
-            ListNode* newPtr = (ListNode*) malloc(sizeof(ListNode));
-
-            newPtr = enterInformationOfStudent();
-            newPtr->next = pointerToList->head;
-            pointerToList->head = newPtr;
-            pointerToList->tail = newPtr;
-        }
-
-        (pointerToList->size)++;
-    }
+    newPtr = enterInformationOfStudent();
+    newPtr->next = pointerToList->tail->next;
+    pointerToList->tail->next = newPtr;
+    pointerToList->tail = newPtr;
+    (pointerToList->size)++;
 }
-void printList(List *pointerToList)
+void insert_In_Nth_Position_In_The_Middle(List *pointerToList)
 {
-    printf("\n");
-    printf("The size of the list is : %i !\n\n", pointerToList->size);
-    if (pointerToList->size == 0)
+    printf("%s", "Enter the position where you want to insert ! : ");
+    int position;
+    scanf("%i", &position);
+    if (pointerToList->size <= 1)
     {
-        puts("There are no nodes to print");
+        puts("The size should be greater than or equal to 2");
         return;
     }
-    ListNode *currentPtr = pointerToList->head;
-    puts("The list nodes are : ");
-    printf("\n");
-    int count = 1;
-    while(currentPtr != NULL)
+
+    bool validityPostion = false;
+
+    while(validityPostion == false)
     {
-        printf("The name of student %i is : %s",count, currentPtr->Student_Name);
-        printf("The ID of this student is : %i\n", currentPtr->Student_ID);
-        printf("The score of last year of this student is : %i\n", currentPtr->Score_Of_Last_Year);
-        printf("The date of birth of this student is : %i.%i.%i\n" , currentPtr->Day_Of_Birth, currentPtr->Month_Of_Birth
-               , currentPtr->Year_Of_Birth);
-        currentPtr = currentPtr->next;
-        count++;
-        printf("\n\n");
+        if(position > 0 && position < pointerToList->size)
+        {
+            ListNode* currentPtr;
+            currentPtr = pointerToList->head;
+            ListNode* newPtr = (ListNode*) malloc(sizeof(ListNode));
+            newPtr = enterInformationOfStudent();
+
+            for(int i = 0; i < position - 1; ++i)
+            {
+                currentPtr = currentPtr->next;
+            }
+            newPtr->next = currentPtr->next;
+            currentPtr->next = newPtr;
+            (pointerToList->size)++;
+            validityPostion = true;
+        }
+        else{
+            puts("Invalid position!!");
+            printf("position should be greater than 0 and less than %i\n", pointerToList->size);
+            puts("Enter the new position!");
+            scanf("%i", &position);
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
