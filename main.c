@@ -253,63 +253,156 @@ int main()
 
 
 
-void insertInTheBeginning(List *pointerToList)
-{
-    ListNode* newPtr = (ListNode*) malloc(sizeof(ListNode));
-    newPtr = enterInformationOfStudent();
-    newPtr->next = pointerToList->head;
-    pointerToList->head = newPtr;
-    (pointerToList->size)++;
-}
-void insertInTheEnd(List *pointerToList)
-{
-    ListNode* newPtr = (ListNode*) malloc(sizeof(ListNode));
 
-    newPtr = enterInformationOfStudent();
-    newPtr->next = pointerToList->tail->next;
-    pointerToList->tail->next = newPtr;
-    pointerToList->tail = newPtr;
-    (pointerToList->size)++;
-}
-void insert_In_Nth_Position_In_The_Middle(List *pointerToList)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ListNode* enterInformationOfStudent()
 {
-    printf("%s", "Enter the position where you want to insert ! : ");
-    int position;
-    scanf("%i", &position);
-    if (pointerToList->size <= 1)
+
+    fflush(stdin);
+    ListNode* pointerToListNode = (ListNode*) malloc(sizeof(ListNode));
+    printf("Enter the name of your student : ");
+    fgets(pointerToListNode->Student_Name, 30, stdin);
+
+    printf("Enter the ID of of your student : ");
+    scanf("%i", &(pointerToListNode->Student_ID));
+
+    bool validity_ID = false;
+    while (!validity_ID)
     {
-        puts("The size should be greater than or equal to 2");
-        return;
-    }
-
-    bool validityPostion = false;
-
-    while(validityPostion == false)
-    {
-        if(position > 0 && position < pointerToList->size)
-        {
-            ListNode* currentPtr;
-            currentPtr = pointerToList->head;
-            ListNode* newPtr = (ListNode*) malloc(sizeof(ListNode));
-            newPtr = enterInformationOfStudent();
-
-            for(int i = 0; i < position - 1; ++i)
+        if (pointerToListNode->Student_ID >= 0)
+            validity_ID = true;
+        else
             {
-                currentPtr = currentPtr->next;
+                puts("Wrong ID!");
+                printf("Enter a new ID : ");
+                scanf("%i", &(pointerToListNode->Student_ID));
             }
-            newPtr->next = currentPtr->next;
-            currentPtr->next = newPtr;
-            (pointerToList->size)++;
-            validityPostion = true;
-        }
-        else{
-            puts("Invalid position!!");
-            printf("position should be greater than 0 and less than %i\n", pointerToList->size);
-            puts("Enter the new position!");
-            scanf("%i", &position);
-        }
     }
+
+    printf("Enter the score of last year of of your student : ");
+    scanf("%i", &(pointerToListNode->Score_Of_Last_Year));
+    bool validity_Score = false;
+    while (!validity_Score)
+    {
+        if (pointerToListNode->Score_Of_Last_Year >= 0)
+            validity_Score = true;
+        else
+            {
+                puts("Wrong score!");
+                printf("Enter a new score : ");
+                scanf("%i", &(pointerToListNode->Score_Of_Last_Year));
+            }
+    }
+
+    printf("Enter the date of birth of of your student!\n");
+    printf("%s","Enter the day : ");
+    scanf("%i", &(pointerToListNode->Day_Of_Birth));
+    printf("%s", "Enter the month :");
+    scanf("%i", &(pointerToListNode->Month_Of_Birth));
+    printf("%s", "Enter the year : ");
+    scanf("%i", &(pointerToListNode->Year_Of_Birth));
+    bool validity_DateOfBirth = false;
+    while (!validity_DateOfBirth)
+    {
+        if ((pointerToListNode->Day_Of_Birth > 0 && pointerToListNode->Day_Of_Birth <= 31) && ((pointerToListNode->Month_Of_Birth) > 0
+            && (pointerToListNode->Month_Of_Birth) <=12) && ((pointerToListNode->Year_Of_Birth) >= 0))
+                validity_DateOfBirth = true;
+        else
+            {
+                puts("Wrong date of birth!");
+                printf("%s","Enter the day : ");
+                scanf("%i", &(pointerToListNode->Day_Of_Birth));
+                printf("%s", "Enter the month :");
+                scanf("%i", &(pointerToListNode->Month_Of_Birth));
+                printf("%s", "Enter the year : ");
+                scanf("%i", &(pointerToListNode->Year_Of_Birth));
+            }
+    }
+    printf("\n\n");
+    return pointerToListNode;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
